@@ -29,6 +29,13 @@ const PATTERNS = {
     { regex: /import\s*\(\s*['"][^'"]*['"\s]*\+/g, severity: "HIGH", desc: "Dynamic import — dependency confusion risk" },
     { regex: /npm install|pip install|cargo install/g, severity: "LOW", desc: "Install command in code — verify package names" },
   ],
+  unicode_attacks: [
+    { regex: /[\uFE00-\uFE0F\u{E0100}-\u{E01EF}]/gu, severity: "CRITICAL", desc: "Invisible Unicode variation selectors — possible Glassworm-style payload" },
+    { regex: /[\u200B\u200C\u200D\uFEFF\u00AD\u2060\u180E]/g, severity: "HIGH", desc: "Zero-width/invisible characters — may hide malicious code" },
+    { regex: /[\u202A-\u202E\u2066-\u2069]/g, severity: "CRITICAL", desc: "Bidirectional control characters — Trojan Source attack vector" },
+    { regex: /[\u0400-\u04FF](?=[a-zA-Z])|(?<=[a-zA-Z])[\u0400-\u04FF]/g, severity: "HIGH", desc: "Mixed Cyrillic/Latin chars — possible homoglyph attack" },
+    { regex: /eval\s*\(\s*Buffer\.from\s*\(\s*s\s*\(\s*`/g, severity: "CRITICAL", desc: "Glassworm decoder pattern — invisible Unicode payload execution" },
+  ],
   config: [
     { regex: /cors\s*\(\s*\{[^}]*origin\s*:\s*['"]?\*/gi, severity: "MEDIUM", desc: "Wildcard CORS — any origin can access API" },
     { regex: /(?:verify|validate|check)\s*[:=]\s*false/gi, severity: "HIGH", desc: "Verification/validation disabled" },
