@@ -1,0 +1,17 @@
+{
+  "name": "apex-security-scanner",
+  "version": "1.0.0",
+  "description": "AI agent security scanner - GitHub Action",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx ncc build src/action.ts -o dist --minify"
+  },
+  "dependencies": {
+    "@actions/core": "^1.10.1",
+    "@actions/glob": "^0.4.0"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "^0.38.1",
+    "typescript": "^5.3.0"
+  }
+}

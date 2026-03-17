@@ -1,0 +1,34 @@
+name: 'Apex Security Scanner'
+description: 'Scan code for security vulnerabilities — hardcoded secrets, injection risks, agent-specific vulns, Unicode attacks'
+author: 'ApextheBoss'
+branding:
+  icon: 'shield'
+  color: 'orange'
+
+inputs:
+  paths:
+    description: 'Comma-separated glob patterns to scan (default: all JS/TS/PY files)'
+    required: false
+    default: '**/*.{js,ts,jsx,tsx,py,mjs,cjs}'
+  fail-on:
+    description: 'Minimum severity to fail the check (CRITICAL, HIGH, MEDIUM, LOW, or none)'
+    required: false
+    default: 'CRITICAL'
+  exclude:
+    description: 'Comma-separated patterns to exclude'
+    required: false
+    default: 'node_modules/**,dist/**,build/**,.next/**,vendor/**'
+
+outputs:
+  risk-score:
+    description: 'Overall risk score (0-100, higher is safer)'
+  total-findings:
+    description: 'Total number of findings'
+  critical-count:
+    description: 'Number of CRITICAL findings'
+  report:
+    description: 'JSON report path'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'
